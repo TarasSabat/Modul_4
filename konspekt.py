@@ -335,6 +335,32 @@ my_list.sorted - отримуємо новий відсортований спи
 '''Що не можна робити, поки ітеруєтеся за словником: не можна видаляти елементи із словника, 
 не можна додавати елементи у словник. Але можна перезаписувати значення, якщо ви ітеруєтеся за ключами.'''
 
+### Перевірка скільки разів символ входить в строку та поміщення результату в словник 
+
+# text = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+# dict_counter = {} # {'L':1, 'o':2}
+# for char in text:
+#     try:            # видає помилку так як при першому входженні словник порожній
+#         count = dict_counter[char]  # отримаємо значення по ключу
+#     except KeyError:
+#         count = 0
+#     count +=1
+#     dict_counter[char] = count  # записуємо значення по ключу
+
+# print(dict_counter)
+
+### Спосіб прописаний вище можна спростити з використанням методу get
+
+# text = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+# dict_counter = {} # {'L':1, 'o':2}
+# for char in text:
+#     count = dict_counter.get(char, 0) 
+#     count +=1
+#     dict_counter[char] = count  # записуємо значення по ключу
+
+# print(dict_counter)
+
+
 '''МНОЖИНИ'''
 '''Множини — це неврегульований контейнер, який містить тільки унікальні елементи. У множину можна додавати 
 тільки незмінні типи даних.
@@ -381,6 +407,25 @@ my_list.sorted - отримуємо новий відсортований спи
 
 # a | b   # {' ', '!', 'e', 'h', 'i', 'l', 'o', 'r', 't'}
 
+### Відокремимо елементи англійського алфавіту за допомогою множини
+
+# text = "The best employees of a month get a special bonus: they can have an extra day off once a week during the following month. Also, you can take a day off if you work overtime. Actually, you don't have to work overtime, but if you do, you can either get money for it or an extra day off work."
+
+# alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+# char_set = set()
+# symdol_set = set()
+
+# for el in text:
+#     if el.lower() in alphabet:
+#         char_set.add(el)
+#     else:
+#         symdol_set.add(el)
+
+# print(f'Chars {char_set}')
+# print(f'Symbols {symdol_set}')
+
+
 '''РЯДКИ'''
 '''Для того щоб створити змінну типу "рядок", необхідно певний набір символів взяти в лапки.
 Варіант 1. Одинарні лапки (апостроф) 'some text'
@@ -425,6 +470,61 @@ my_list.sorted - отримуємо новий відсортований спи
 # print(s.endswith("jpg"))    # Виведе True
 
 '''Цей метод зручно використовувати для перевірки розширення файлів.'''
+
+'''Метод для розбивання строки на слова зі знаком пробіл і отримання списку слів - text.split()'''
+
+# text = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+# worlds = text.split()
+# print(worlds)   # ['Lorem', 'Ipsum', 'is', 'simply', 'dummy', 'text', 'of', 'the', 'printing', 'and', 
+                                                                          #'typesetting', 'industry.']
+### Ітерація строки та виведення поелементного (політерах) списку строки
+
+# text = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+# for char in text:
+#     print(char) #L o r e m  I p s u m  i s  s i m p l y  d u m m y  t e x t  o f  t h e  p r i n t i n g  a n d  t y p e s e t t i n g  i n d u s t r y .
+
+### Ітерація строки та виведення поелементного (політерах) списку строки з індексами
+
+# text = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+# for index, char in enumerate(text):
+#     print(index, char)
+
+### Ітерація строки та здійснення перевірки чи є символ літерою алфавіту (тільки малі літери)
+
+# text = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+# alphabets = 'abcdefghijklmnopqrstuvwxyz'
+# for index, char in enumerate(text):
+#     if char in alphabets:
+#         print(index, char)
+
+### Ітерація строки та здійснення перевірки чи є символ літерою алфавіту (малі і великі літери)
+
+# text = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+# alphabets = 'abcdefghijklmnopqrstuvwxyz'
+# for index, char in enumerate(text):
+#     if char.lower() in alphabets:
+#         print(index, char)
+
+# ## Ітерація строки, здійснення перевірки, та виведення символі які не є літерою алфавіту
+
+# text = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+# alphabets = 'abcdefghijklmnopqrstuvwxyz'
+# for index, char in enumerate(text):
+#     if not char.lower() in alphabets:
+#         print(index, char)
+
+## Ітерація строки, відокремлення слів в строці 
+
+# text = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+# alphabets = 'abcdefghijklmnopqrstuvwxyz'
+# words = []
+# start = 0
+# for index, char in enumerate(text):
+#     if not char.lower() in alphabets:
+#         word = text[start:index]
+#         words.append(word.strip())  # очищення від пробілів
+#         start = index
+# print(words)
 
 '''Перевірка на входження
 Будь-яка колекція дозволяє перевірити, чи містить колекція цей елемент (чи є там такий самий). 
@@ -510,6 +610,80 @@ my_list.sorted - отримуємо новий відсортований спи
 # a = {'a':1, 'b':2, 'c':3}
 # for key, values in a.items():
 #     print(key, values)       # a 1   b 2   c 3
+
+# Приклади взаємодії списка з циклом for.
+
+# my_list = ['a', 'b', 'c', 'd', 'f']
+# for i in my_list:
+#     print(i)  # a b c d f
+
+### отримуємо індекси
+
+# my_list = ['a', 'b', 'c', 'd', 'f']
+# for i in range(len(my_list)):
+#     print(i)  #  0 1 2 3 4
+
+### отримуємо елементи
+
+# my_list = ['a', 'b', 'c', 'd', 'f']
+# for i in range(len(my_list)):
+#     print(my_list[i])  #  a b c d f
+
+### отримуємо впорядковану колекцію х індексів і елементів
+
+# my_list = ['a', 'b', 'c', 'd', 'f']
+# for index, element in enumerate(my_list):
+#     print(index, element)  #  0 a  1 b  2 c  3 d  4 f
+
+### ітерування даних в зворотному напрямку
+
+# my_list = ['a', 'b', 'c', 'd', 'f']
+# for i in reversed(my_list):
+#     print(i)  #  f  b  c  d  a
+
+### ітерування і сортування
+
+# my_list = ['d', 'b', 'a', 'c', 'f']
+# for i in sorted(my_list):
+#     print(i)  #  a b c d f
+
+# Передача списку в функцію
+
+# def func(my_list):
+#     return my_list
+
+# print(func([1, 2, 3, 4]))  #  [1, 2, 3, 4]
+
+# або 
+
+# def func(my_list):
+#     print(my_list)
+#     return my_list
+
+# func([1, 2, 3, 4])  #  [1, 2, 3, 4]
+
+# або 
+
+# def func(my_list):
+#     print(my_list)
+#     return my_list
+
+# a = [1, 2, 3, 4]
+# func(a)             #  [1, 2, 3, 4]
+
+'''Аргументи командроно рядка'''
+
+import sys
+
+def main():
+    print(sys.argv)
+
+
+
+
+
+
+
 
 
 

@@ -192,17 +192,17 @@ random_num = randint(40, 126)
 Після виконання коду в змінній random_num буде знаходитися випадкове ціле число від 40 до 126 включно.
 Таким чином функція get_random_password має випадковим чином вибрати із запропонованого діапазону 8 символів та повернути згенерований пароль у вигляді рядка.'''
 
-from random import randint
+# from random import randint
 
-def get_random_password():
-    result = ''
-    count = 0
-    while count < 8:
-        result += chr(randint(40, 126))
-        count += 1
-    return result
+# def get_random_password():
+#     result = ''
+#     count = 0
+#     while count < 8:
+#         result += chr(randint(40, 126))
+#         count += 1
+#     return result
 
-print(get_random_password())
+# print(get_random_password())
 
 '''Другий етап. Необхідно написати функцію is_valid_password, яка перевірятиме отриманий параметр — пароль на надійність.
 Критерії надійного пароля:
@@ -211,3 +211,115 @@ print(get_random_password())
 Містить хоча б одну літеру у нижньому регістрі.
 Містить хоча б одну цифру.
 Функція is_valid_password повинна повернути True, якщо переданий параметр пароль відповідає вимогам на надійність. Інакше повернути False.'''
+
+### Варіант 1
+# def is_valid_password(password):
+#     if len(password) != 8:
+#         return False
+#     if any(ch.isdigit() for ch in password) and any(ch.isupper() for ch in password) and any(ch.islower() for ch in password):
+#         return True
+#     else:
+#         return False
+    
+# print(is_valid_password('S|1QY(Cb'))
+
+### Варіант 2 
+# def is_valid_password(password):
+#     if len(password) != 8:
+#         return False
+
+#     has_upper = False
+#     has_lower = False
+#     has_num = False
+
+#     for ch in password:
+#         if has_upper and has_lower and has_num:
+#             return True
+#         if ch.isupper():
+#             has_upper = True
+#         elif ch.islower():
+#             has_lower = True
+#         elif ch.isdigit():
+#             has_num = True
+    
+#     return has_upper and has_lower and has_num   
+
+'''І, нарешті, третій, останній етап. Використовуючи рішення із попередніх двох завдань, напишіть функцію get_password, яка згенерує нам випадковий надійний пароль та поверне його. Алгоритм простий — ми генеруємо пароль за допомогою функції get_random_password і, якщо він проходить перевірку на надійність функцією is_valid_password, повертаємо його, якщо ні — повторюємо ітерацію знову.
+Примітка: Хорошою практикою буде обмежити кількість спроб (наприклад, до 100), щоб не отримати нескінченний цикл.'''
+
+# from random import randint
+
+
+# def get_random_password():
+#     result = ""
+#     count = 0
+#     while count < 8:
+#         random_symbol = chr(randint(40, 126))
+#         result = result + random_symbol
+#         count = count + 1
+#     return result
+
+
+# def is_valid_password(password):
+#     if len(password) != 8:
+#         return False
+
+#     has_upper = False
+#     has_lower = False
+#     has_num = False
+
+#     for ch in password:
+#         if ch.isupper():
+#             has_upper = True
+#         elif ch.islower():
+#             has_lower = True
+#         elif ch.isdigit():
+#             has_num = True
+
+#     return has_upper and has_lower and has_num
+
+
+# def get_password():
+#     flag = True
+#     current = 0
+
+#     while flag:
+#         my_pas = get_random_password()
+#         flag = False if is_valid_password(my_pas) else True
+#         current += 1 
+#         if current == 100:
+#             break
+    
+#     return my_pas
+
+'''Напишіть функцію parse_folder, вона приймає єдиний параметр path, який є об'єктом Path. Функція повинна просканувати директорію path та повернути кортеж із двох списків. Перший — це список файлів усередині директорії, другий — список директорій.
+Приклад виводу функції:
+(['.gitignore', 'readme.md'],
+ ['.git', '.idea', '.vscode', 'module-01', 'module-02', 'module-03', 'module-04', 'module-05', 'module-06', 'module-07',
+  'module-08', 'module-09', 'module-10', 'module-11', 'module-12'])'''
+
+# from pathlib import Path
+
+# def parse_folder(path):
+#     files = []
+#     folders = []
+
+#     for el in path.iterdir():
+#         if el.is_dir():
+#             folders.append(el.name)
+#         else:
+#             files.append(el.name)
+
+#     return files, folders
+
+# p = Path('d:/IT/GoIT/Modul_3')
+# print(parse_folder(p))
+
+'''Створіть функцію parse_args, яка повертає рядок, складений з аргументів командного рядка, розділених пробілами. Наприклад, якщо скрипт був викликаний командою: python run.py first second, то функція parse_args повинна повернути рядок наступного виду 'first second'.'''
+
+# import sys
+
+# def parse_args():
+#     result = " ".join(sys.argv[1:])
+
+#     return result
